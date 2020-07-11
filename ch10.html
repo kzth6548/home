@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">
+<html>
+<head>
+<title>김주현의 웹 프로그래밍 홈페이지</title>
+
+<!-- Stylesheet link -->
+<link rel="stylesheet" type="text/css" href="ml.css" />
+
+<script language="JavaScript" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+
+<!-- SITE HEADER (INCLUDES LOGO AND SEARCH BOX) -->
+
+<table width=100% bgcolor="#003366">
+<tr>
+	<td>
+		<br>
+	</td>
+	<td>
+		<span class="normal"><a href="index.html" alt="Home"><img src="logo.gif" border=0></img></a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.gachon.ac.kr/main.jsp"><font color="FFDD33">여기를 누르면 가천대학교로 이동합니다.</font></a></span>
+	</td>
+	<td width=100% valign=top align="right">
+		<span class="whitetext">
+		<a href="ch7.html">7장. 자바 스크립트 코어 객체와 배열</a>&nbsp;
+		<a href="ch9.html">9장. 이벤트 기초 및 활용</a>&nbsp;
+		<a href="ch10.html">10장. 윈도우와 브라우저 관련 객체</a>&nbsp;
+		<a href="ch11.html">11장. HTML5 캔버스 그래픽</a>&nbsp;
+
+		<br>
+		<br>
+		<!-- Search Google -->
+
+		<FORM method=GET action=https://www.google.com/custom onsubmit="return checkform(this);">
+		<INPUT TYPE=text name=q size=30 maxlength=255 value="">
+		<INPUT type=submit name=sa VALUE="Search">
+		<INPUT type=hidden name=cof VALUE="AH:center;LH:130;L:http://archive.ics.uci.edu/ml/assets/logo.gif;LW:384;AWFID:869c0b2eaa8d518e;">
+		<input type=hidden name=domains value="ics.uci.edu">
+		<br>
+		<input type=radio name=sitesearch value="naver.com" checked> <span class="whitetext"><font size="1">Repository</font></span>
+		<input type=radio name=sitesearch value=""> <span class="whitetext"><font size="1">Web</font></span>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<A HREF=https://www.google.com/search><IMG SRC=https://www.google.com/logos/Logo_25blk.gif border=0 ALT=Google align=middle height=27></A>
+		<br>
+		</FORM>
+		<!-- Search Google -->
+
+
+		<span class="whitetext"><a href="https://cyber.gachon.ac.kr/"><font size="3" color="#FFDD33"><b>사이버 캠퍼스로 이동</b></font></a></span>
+		<br>
+	</td>
+</tr>
+</table>
+
+
+
+
+<br>
+<table width=100% border=0 cellpadding=2><tr><td>
+
+
+
+<p class="big" align="center"><b>챕터 10. 윈도우와 브라우저 관련 객체</b></p>
+
+
+<!-- <p class="almostbig" align="center"><font color=red><b>[4/6/09]:</b> Our backend data server is currently down -- please 
+use our <a href='http://mlr.cs.umass.edu/ml/'><font color=red>mirror site</font></a> to download data. </p></font> -->
+
+
+
+<span class="normal" align="center">10장에서는 브라우저와 관련된 객체(BOM)에 대해서 알 수 있다. 가장 중요한 window 객체와 location, navigator, screen, history 객체가 있다.</span><hr>
+
+<div>
+<p class="almostbig" align="center"><b>10.3 Window의 타이머 활용</b></p>
+
+<span class="normal" align="center">Window에는 타이머를 작동시키는 메소드가 있어 이를 이용하면 시간에 따라 웹 페이지에 동적인 변화를 줄 수 있다. 여기 예제에서는 타임 아웃 코드를 반복 호출하는 setInterval() / clearInterval() 메소드를 활용하였다.</span><br>
+
+<pre class="normal" style="background-color:skyblue;padding:20px;">
+&lt;span id="span" style="background-color:red"&gt;
+		글씨 배경 색이 변화합니다.&lt;/span&gt;
+&lt;script&gt;
+var span = document.getElementById("span");
+var timerID = setInterval("doChange()", 200);
+var color = ["red", "orange", "yellow", "green", "blue", "navy", "purple"]
+var i = 0;
+
+span.onclick = function (e) { // 마우스 클릭 이벤트 리스너
+	clearInterval(timerID); // 타이머 해제. 문자열 배경 색 전환 중단
+}
+
+function doChange() {
+	span.style.backgroundColor = color[i];
+	i++;
+	if(i == 6) {i=0;}
+}
+&lt;/script&gt;
+</pre>
+
+<span id="span" style="background-color:red">
+		글씨 배경 색이 변화합니다.</span>
+<script>
+var span = document.getElementById("span");
+var timerID = setInterval("doChange()", 200);
+var color = ["red", "orange", "yellow", "green", "blue", "navy", "purple"]
+var i = 0;
+
+span.onclick = function (e) { // 마우스 클릭 이벤트 리스너
+	clearInterval(timerID); // 타이머 해제. 문자열 배경 색 전환 중단
+}
+
+function doChange() {
+	span.style.backgroundColor = color[i];
+	i++;
+	if(i == 6) {i=0;}
+}
+</script>
+</div>
+
+<br><hr>
+
+<div>
+<p class="almostbig" align="center"><b>10.4 window 객체 활용</b></p>
+
+<span class="normal" align="center">window 객체를 적절히 활용하면 브라우저의 크기 조절이나 현재의 웹 페이지 출력, 스크롤 등이 가능하다. 여기 예제에서는 버튼을 누르면 웹 페이지를 스크롤되게 하였다.</span><br>
+
+<pre class="normal" style="background-color:skyblue;padding:20px;">
+&lt;button onclick="window.scrollBy(0, -20)"&gt;위로 스크롤&lt;/button&gt;
+&lt;button onclick="window.scrollBy(0, 20)"&gt;아래로 스크롤&lt;/button&gt;
+</pre>
+
+<button onclick="window.scrollBy(0, -20)">위로 스크롤</button>
+<button onclick="window.scrollBy(0, 20)">아래로 스크롤</button>
+</div>
+
+<br><hr>
+
+<div>
+<p class="almostbig" align="center"><b>10.5 location 객체</b></p>
+
+<span class="normal" align="center">location 객체를 활용하여 윈도우에 로드된 웹 페이지의 URL의 정보를 활용할 수 있다. 아래 예제에서는 라디오 박스를 선택 후 웹 사이트에 접속하는 예제이다.</span><br>
+
+<pre class="normal" style="background-color:skyblue;padding:20px;">
+&lt;script&gt;
+function load() {
+	var form = document.getElementsByName("site");
+	var checked_index = -1;
+	var checked_value = '';
+	for( i=0; i&lt;form.length; i++ ) {
+		if(form[i].checked) {
+			checked_index = i;
+			checked_value = form[i].value;
+		}
+	}
+	window.location = checked_value;
+}
+&lt;/script&gt;
+
+사이트 선택 :
+	&lt;input type="radio" name="site" value="http://www.naver.com" checked&gt;네이버
+	&lt;input type="radio" name="site" value="http://www.google.com"&gt;구글
+	&lt;input type="radio" name="site" value="http://www.microsoft.com"&gt;마이크로소프트
+
+	&lt;button onclick="load()"&gt;웹 사이트 접속&lt;/button&gt;
+</pre>
+
+<script>
+function load() {
+	var form = document.getElementsByName("site");
+	var checked_index = -1;
+	var checked_value = '';
+	for( i=0; i<form.length; i++ ) {
+		if(form[i].checked) {
+			checked_index = i;
+			checked_value = form[i].value;
+		}
+	}
+	window.location = checked_value;
+}
+</script>
+
+사이트 선택 :
+	<input type="radio" name="site" value="http://www.naver.com" checked>네이버
+	<input type="radio" name="site" value="http://www.google.com">구글
+	<input type="radio" name="site" value="http://www.microsoft.com">마이크로소프트
+
+	<button onclick="load()">웹 사이트 접속</button>
+
+</div>
+
+<br><hr>
+
+<center>
+<span class="normal">
+
+<a href="컴퓨터의 기술 소개.html">1차 과제 확인!</a>
+</span>
+</center>
+
+</body>
+</html>
