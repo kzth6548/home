@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">
+<html>
+<head>
+<title>김주현의 웹 프로그래밍 홈페이지</title>
+
+<!-- Stylesheet link -->
+<link rel="stylesheet" type="text/css" href="ml.css" />
+
+<script language="JavaScript" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+
+<!-- SITE HEADER (INCLUDES LOGO AND SEARCH BOX) -->
+
+<table width=100% bgcolor="#003366">
+<tr>
+	<td>
+		<br>
+	</td>
+	<td>
+		<span class="normal"><a href="index.html" alt="Home"><img src="logo.gif" border=0></img></a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.gachon.ac.kr/main.jsp"><font color="FFDD33">여기를 누르면 가천대학교로 이동합니다.</font></a></span>
+	</td>
+	<td width=100% valign=top align="right">
+		<span class="whitetext">
+		<a href="ch7.html">7장. 자바 스크립트 코어 객체와 배열</a>&nbsp;
+		<a href="ch9.html">9장. 이벤트 기초 및 활용</a>&nbsp;
+		<a href="ch10.html">10장. 윈도우와 브라우저 관련 객체</a>&nbsp;
+		<a href="ch11.html">11장. HTML5 캔버스 그래픽</a>&nbsp;
+
+		<br>
+		<br>
+		<!-- Search Google -->
+
+		<FORM method=GET action=https://www.google.com/custom onsubmit="return checkform(this);">
+		<INPUT TYPE=text name=q size=30 maxlength=255 value="">
+		<INPUT type=submit name=sa VALUE="Search">
+		<INPUT type=hidden name=cof VALUE="AH:center;LH:130;L:http://archive.ics.uci.edu/ml/assets/logo.gif;LW:384;AWFID:869c0b2eaa8d518e;">
+		<input type=hidden name=domains value="ics.uci.edu">
+		<br>
+		<input type=radio name=sitesearch value="naver.com" checked> <span class="whitetext"><font size="1">Repository</font></span>
+		<input type=radio name=sitesearch value=""> <span class="whitetext"><font size="1">Web</font></span>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<A HREF=https://www.google.com/search><IMG SRC=https://www.google.com/logos/Logo_25blk.gif border=0 ALT=Google align=middle height=27></A>
+		<br>
+		</FORM>
+		<!-- Search Google -->
+
+
+		<span class="whitetext"><a href="https://cyber.gachon.ac.kr/"><font size="3" color="#FFDD33"><b>사이버 캠퍼스로 이동</b></font></a></span>
+		<br>
+	</td>
+</tr>
+</table>
+
+
+
+
+<br>
+<table width=100% border=0 cellpadding=2><tr><td>
+
+
+
+<p class="big" align="center"><b>챕터 7. 자바스크립트 코어 객체와 배열</b></p>
+
+
+<!-- <p class="almostbig" align="center"><font color=red><b>[4/6/09]:</b> Our backend data server is currently down -- please 
+use our <a href='http://mlr.cs.umass.edu/ml/'><font color=red>mirror site</font></a> to download data. </p></font> -->
+
+
+
+<span class="normal" align="center">여기에서는 자바스크립트의 코어 객체들의 활용을 알아 볼 것입니다. 차례로 예시가 이어집니다.</span><hr>
+
+<div>
+<p class="almostbig" align="center"><b>7.3 배열과 Array</b></p>
+
+<span class="normal" align="center">자바스크립트에서 Array 객체를 사용하여 배열을 만들 수 있다. 아래는 Array 객체로 배열을 만들어 이름을 저장 및 출력해 보았다.</span><br>
+
+<pre class="normal" style="background-color:skyblue;padding:20px;">&lt;script&gt;
+var degrees = new Array(); // 빈 배열 생성
+degrees[0] = "김재혁";
+degrees[1] = "김금숙"; 
+degrees[2] = "김승현";
+degrees[3] = "김우현"; 
+degrees[4] = "김주현"; 
+
+document.write("결과 "+"&lt;br&gt;");
+for(i=0; i&lt;degrees.length; i++)
+	{document.write("degrees[" + i + "] = " + degrees[i] + "&lt;br&gt;");}&lt;/script&gt; </pre>
+
+<script>
+var degrees = new Array(); // 빈 배열 생성
+degrees[0] = "김재혁";
+degrees[1] = "김금숙"; 
+degrees[2] = "김승현";
+degrees[3] = "김우현"; 
+degrees[4] = "김주현"; 
+
+document.write("결과 "+"<br>");
+for(i=0; i<degrees.length; i++)
+	{document.write("degrees[" + i + "] = " + degrees[i] + "<br>");}
+</script>
+</div>
+
+<br><hr>
+
+<div>
+<p class="almostbig" align="center"><b>7.4 Date</b></p>
+
+<span class="normal" align="center">Date 객체는 시간과 관련된 정보를 담고 있다. 아래의 예제는 방문한 시각에 따라 다른 그림이 출력되도록 하였다.</span><br>
+
+<pre class="normal" style="background-color:skyblue;padding:20px;">
+
+&lt;canvas id="myCanvas" 
+		style="background-color:aliceblue"
+	 	width="300" height="300"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+	var canvas = document.getElementById("myCanvas");
+	var context = canvas.getContext("2d");
+	var current = new Date();
+	var img = new Image();
+	
+	img.onload = function () {
+		context.drawImage(img, 0, 0, canvas.width, canvas.height);
+	}
+	if(current.getSeconds() % 2 == 0)
+	img.src = "media/android.jpg";
+else
+	img.src = "media/iphone.png";
+&lt;/script&gt;
+
+</pre>
+
+<canvas id="myCanvas" 
+		style="background-color:aliceblue"
+	 	width="300" height="300"></canvas>
+<script>
+	var canvas = document.getElementById("myCanvas");
+	var context = canvas.getContext("2d");
+	var current = new Date();
+	var img = new Image();
+	
+	img.onload = function () {
+		context.drawImage(img, 0, 0, canvas.width, canvas.height);
+	}
+	if(current.getSeconds() % 2 == 0)
+	img.src = "media/android.jpg";
+else
+	img.src = "media/iphone.png";
+</script>
+</div>
+
+<hr>
+
+<div>
+<p class="almostbig" align="center"><b>7.5 String</b></p>
+
+<span class="normal" align="center">String 객체를 사용하여 문자열을 저장하고 다룰 수 있다. 여기에서는 일반 문자열과 string 객체에 저장된 문자열을 eval 함수에 넣었을 때의 차이를 확인해 보았다. </span><br>
+
+<pre class="normal" style="background-color:skyblue;padding:20px;">
+
+&lt;script&gt;
+var s1 = '2 + 2';
+var s2 = new String('2 + 2');
+document.write(eval(s1) + "&lt;br&gt;");
+document.write(eval(s2) + "&lt;br&gt;");
+&lt;/script&gt;
+
+</pre>
+
+<script>
+var s1 = '2 + 2';
+var s2 = new String('2 + 2');
+document.write(eval(s1) + "<br>");
+document.write(eval(s2) + "<br>");
+</script>
+</div>
+
+<hr>
+
+<div>
+
+<p class="almostbig" align="center"><b>7.6 Math</b></p>
+
+<span class="normal" align="center">Math 객체는 자바 스크립트 내에서 수학 계산을 위해 사용하는 객체이다. new Math()로 생성하진 않으며 Math.프로퍼티 또는 Math.메소드()를 통해 사용한다. 밑의 예제에서는 Mate 객체의 random 메소드를 사용하여 난수 10개를 만드어 보았다.</span><br>
+
+<pre class="normal" style="background-color:skyblue;padding:20px;">
+
+&lt;script&gt;
+for(i=0; i&lt;10; i++){
+	var m = Math.random()*100;
+	var n = Math.floor(m);
+	document.write(n + " ")
+}
+&lt;/script&gt;
+
+</pre>
+
+<script>
+for(i=0; i<10; i++){
+	var m = Math.random()*100;
+	var n = Math.floor(m);
+	document.write(n + " ")
+}
+</script>
+
+</div>
+
+<br><hr>
+
+<span class="almostbig" align="center">자바스크립트의 코어 객체들의 활용을 알아보았다. 이러한 자바스크립트 코어 객체를 사용하여 객체 기반 프로그램을 구현할 수 있다.</span><br><br>
+
+
+<center>
+<span class="normal">
+
+<a href="컴퓨터의 기술 소개.html">1차 과제 확인!</a>
+</span>
+</center>
+
+</body>
+</html>
