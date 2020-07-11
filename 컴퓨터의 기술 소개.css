@@ -1,0 +1,9 @@
+h1 {text-align:center;}
+
+k {color : navy;}
+
+html, body { margin: 0; padding: 0; height: 100%; font-family : comic sans ms, "맑은고딕", sans-Serif; background:orange;}
+
+ul {padding : 10px 10px 10px 50px; background : pink; list-style-type : circle;}
+
+ul li {background : greenyellow; margin-bottom : 5px}

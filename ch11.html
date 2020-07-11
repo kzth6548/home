@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">
+<html>
+<head>
+<title>김주현의 웹 프로그래밍 홈페이지</title>
+
+<!-- Stylesheet link -->
+<link rel="stylesheet" type="text/css" href="ml.css" />
+
+<script language="JavaScript" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+
+<!-- SITE HEADER (INCLUDES LOGO AND SEARCH BOX) -->
+
+<table width=100% bgcolor="#003366">
+<tr>
+	<td>
+		<br>
+	</td>
+	<td>
+		<span class="normal"><a href="aaa.html" alt="Home"><img src="logo.gif" border=0></img></a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.gachon.ac.kr/main.jsp"><font color="FFDD33">여기를 누르면 가천대학교로 이동합니다.</font></a></span>
+	</td>
+	<td width=100% valign=top align="right">
+		<span class="whitetext">
+		<a href="ch7.html">7장. 자바 스크립트 코어 객체와 배열</a>&nbsp;
+		<a href="ch9.html">9장. 이벤트 기초 및 활용</a>&nbsp;
+		<a href="ch10.html">10장. 윈도우와 브라우저 관련 객체</a>&nbsp;
+		<a href="ch11.html">11장. HTML5 캔버스 그래픽</a>&nbsp;
+
+		<br>
+		<br>
+		<!-- Search Google -->
+
+		<FORM method=GET action=https://www.google.com/custom onsubmit="return checkform(this);">
+		<INPUT TYPE=text name=q size=30 maxlength=255 value="">
+		<INPUT type=submit name=sa VALUE="Search">
+		<INPUT type=hidden name=cof VALUE="AH:center;LH:130;L:http://archive.ics.uci.edu/ml/assets/logo.gif;LW:384;AWFID:869c0b2eaa8d518e;">
+		<input type=hidden name=domains value="ics.uci.edu">
+		<br>
+		<input type=radio name=sitesearch value="naver.com" checked> <span class="whitetext"><font size="1">Repository</font></span>
+		<input type=radio name=sitesearch value=""> <span class="whitetext"><font size="1">Web</font></span>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<A HREF=https://www.google.com/search><IMG SRC=https://www.google.com/logos/Logo_25blk.gif border=0 ALT=Google align=middle height=27></A>
+		<br>
+		</FORM>
+		<!-- Search Google -->
+
+
+		<span class="whitetext"><a href="https://cyber.gachon.ac.kr/"><font size="3" color="#FFDD33"><b>사이버 캠퍼스로 이동</b></font></a></span>
+		<br>
+	</td>
+</tr>
+</table>
+
+
+
+
+<br>
+<table width=100% border=0 cellpadding=2><tr><td>
+
+
+
+<p class="big" align="center"><b>챕터 11 응용. 미술관</b></p>
+
+
+<!-- <p class="almostbig" align="center"><font color=red><b>[4/6/09]:</b> Our backend data server is currently down -- please 
+use our <a href='http://mlr.cs.umass.edu/ml/'><font color=red>mirror site</font></a> to download data. </p></font> -->
+
+
+
+<span class="normal" align="center">https://developer.mozilla.org/ko/docs/Web/HTML/Canvas/Tutorial/Basic_animations에서 배운 파노라마를 이용하여 이미지 파노라마 및 선택을 구현해보았다.</span><hr>
+
+<div>
+
+<script>
+var img = new Image();
+
+// 변수
+// 스크롤될 이미지, 방향, 속도를 바꾸려면 변수값을 바꾼다.
+
+img.src = 'media/파노라마.jpg';
+var CanvasXSize = 800;
+var CanvasYSize = 200;
+var speed = 30; // 값이 작을 수록 빨라진다
+var scale = 1.05;
+var y = -4.5; // 수직 옵셋
+
+// 주요 프로그램
+
+var dx = 0.75;
+var imgW;
+var imgH;
+var x = 0;
+var clearX;
+var clearY;
+var ctx;
+
+function newImage() {
+	var select = document.getElementById("site");
+	img.src = select.options[select.selectedIndex].value;
+}
+
+img.onload = function() {
+    imgW = img.width*scale;
+    imgH = img.height*scale;
+    if (imgW > CanvasXSize) { x = CanvasXSize-imgW; } // 캔버스보다 큰 이미지
+    if (imgW > CanvasXSize) { clearX = imgW; } // 캔버스보다 큰 이미지
+    else { clearX = CanvasXSize; }
+    if (imgH > CanvasYSize) { clearY = imgH; } // 캔버스보다 큰 이미지
+    else { clearY = CanvasYSize; }
+    // 캔버스 요소 얻기
+    ctx = document.getElementById('canvas').getContext('2d');
+    // 새로 그리기 속도 설정
+    return setInterval(draw, speed);
+}
+
+function draw() {
+    // 캔버스를 비운다
+    ctx.clearRect(0,0,clearX,clearY);
+    // 이미지가 캔버스보다 작거나 같다면 (If image is <= Canvas Size)
+    if (imgW <= CanvasXSize) {
+        // 재설정, 처음부터 시작
+        if (x > (CanvasXSize)) { x = 0; }
+        // 추가 이미지 그리기
+        if (x > (CanvasXSize-imgW)) { ctx.drawImage(img,x-CanvasXSize+1,y,imgW,imgH); }
+    }
+    // 이미지가 캔버스보다 크다면 (If image is > Canvas Size)
+    else {
+        // 재설정, 처음부터 시작
+        if (x > (CanvasXSize)) { x = CanvasXSize-imgW; }
+        // 추가 이미지 그리기
+        if (x > (CanvasXSize-imgW)) { ctx.drawImage(img,x-imgW+1,y,imgW,imgH); }
+    }
+    // 이미지 그리기
+    ctx.drawImage(img,x,y,imgW,imgH);
+    // 움직임 정도
+    x += dx;
+}
+</script>
+<canvas id="canvas" width="800" height="200"></canvas><br>
+
+이미지 선택 :
+<select id="site">
+	<option value="media/파노라마.jpg" selected>이미지1
+	<option value="media/파노라마2.jpg">이미지2
+	<option value="media/파노라마3.jpg">이미지3
+	<option value="media/파노라마4.jpg">이미지4
+</select>
+<p>
+<button onclick=newImage()>이미지 변경</button><br><hr>
+
+<span class="normal" align="center">아래에는 파노라마 애니메이션을 응용한 코드를 넣었다. 이전에 배웠던 </span><br>
+
+<pre class="normal" style="background-color:skyblue;padding:20px;">
+&lt;script&gt;
+var img = new Image();
+
+// 변수
+// 스크롤될 이미지, 방향, 속도를 바꾸려면 변수값을 바꾼다.
+
+img.src = 'media/파노라마.jpg';
+var CanvasXSize = 800;
+var CanvasYSize = 200;
+var speed = 30; // 값이 작을 수록 빨라진다
+var scale = 1.05;
+var y = -4.5; // 수직 옵셋
+
+// 주요 프로그램
+
+var dx = 0.75;
+var imgW;
+var imgH;
+var x = 0;
+var clearX;
+var clearY;
+var ctx;
+
+function newImage() {
+	var select = document.getElementById("site");
+	img.src = select.options[select.selectedIndex].value;
+}
+
+img.onload = function() {
+    imgW = img.width*scale;
+    imgH = img.height*scale;
+    if (imgW &gt; CanvasXSize) { x = CanvasXSize-imgW; } // 캔버스보다 큰 이미지
+    if (imgW &gt; CanvasXSize) { clearX = imgW; } // 캔버스보다 큰 이미지
+    else { clearX = CanvasXSize; }
+    if (imgH &gt; CanvasYSize) { clearY = imgH; } // 캔버스보다 큰 이미지
+    else { clearY = CanvasYSize; }
+    // 캔버스 요소 얻기
+    ctx = document.getElementById('canvas').getContext('2d');
+    // 새로 그리기 속도 설정
+    return setInterval(draw, speed);
+}
+
+function draw() {
+    // 캔버스를 비운다
+    ctx.clearRect(0,0,clearX,clearY);
+    // 이미지가 캔버스보다 작거나 같다면 (If image is &lt;= Canvas Size)
+    if (imgW &lt;= CanvasXSize) {
+        // 재설정, 처음부터 시작
+        if (x &gt; (CanvasXSize)) { x = 0; }
+        // 추가 이미지 그리기
+        if (x &gt; (CanvasXSize-imgW)) { ctx.drawImage(img,x-CanvasXSize+1,y,imgW,imgH); }
+    }
+    // 이미지가 캔버스보다 크다면 (If image is &gt; Canvas Size)
+    else {
+        // 재설정, 처음부터 시작
+        if (x &gt; (CanvasXSize)) { x = CanvasXSize-imgW; }
+        // 추가 이미지 그리기
+        if (x &gt; (CanvasXSize-imgW)) { ctx.drawImage(img,x-imgW+1,y,imgW,imgH); }
+    }
+    // 이미지 그리기
+    ctx.drawImage(img,x,y,imgW,imgH);
+    // 움직임 정도
+    x += dx;
+}
+&lt;/script&gt;
+
+&lt;canvas id="canvas" width="800" height="200"&gt;&lt;/canvas&gt;&lt;br&gt;
+
+이미지 선택 :
+&lt;select id="site"&gt;
+	&lt;option value="media/파노라마.jpg" selected&gt;이미지1
+	&lt;option value="media/파노라마2.jpg"&gt;이미지2
+	&lt;option value="media/파노라마3.jpg"&gt;이미지3
+	&lt;option value="media/파노라마4.jpg"&gt;이미지4
+&lt;/select&gt;
+&lt;p&gt;
+&lt;button onclick=newImage()&gt;이미지 변경&lt;/button&gt;&lt;br&gt;&lt;hr&gt;
+</pre>
+
+</div>
+
+
+<center>
+<span class="normal"z>
+
+<a href="컴퓨터의 기술 소개.html">1차 과제 확인!</a>
+</span>
+</center>
+
+</body>
+</html>

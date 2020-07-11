@@ -1,0 +1,5 @@
+html, body { margin: 0; padding: 0; height: 100%; font-family : comic sans ms, "맑은고딕", sans-Serif; background : purple;}
+
+h1 {text-align:center; color : navy; text-shadow : 3px 3px 5px skyBlue}
+
+form {width:300px; border:dotted orange;}
